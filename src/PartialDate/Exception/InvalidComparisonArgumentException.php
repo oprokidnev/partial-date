@@ -25,15 +25,19 @@
 namespace Oprokidnev\PartialDate\Exception;
 
 /**
- * Description of InvalidDateFormatException
+ * Description of InvalidComparisonArgumentException
  *
  * @author oprokidnev
  */
-class InvalidDateFormatException extends \InvalidArgumentException
+class InvalidComparisonArgumentException extends \InvalidArgumentException
 {
-    public function __construct(string $invalidValue = '', int $code = 0, \Throwable $previous = null)
+    public function __construct($badArgument, int $code = 0, \Throwable $previous = null)
     {
-        $message = \sprintf('Expected date string format: "H:i:s d.m.Y|H:i d.m.Y|H: d.m.Y|d.m.Y|m.Y|Y". "%s" gained.', $invalidValue);
+        if (\is_object($badArgument)) {
+            $message = \sprintf('Expected comparison with \Oprokidnev\PartialDate\PartialDate instance. Instance of class %s gained.', \get_class($badArgument));
+        } else {
+            $message = \sprintf('Expected comparison with \Oprokidnev\PartialDate\PartialDate instance. Instance of type %s gained.', \gettype($badArgument));
+        }
         parent::__construct($message, $code, $previous);
     }
 }

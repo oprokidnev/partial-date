@@ -25,15 +25,23 @@
 namespace Oprokidnev\PartialDate\Exception;
 
 /**
- * Description of InvalidDateFormatException
+ * Comparable implementation acorting to https://wiki.php.net/rfc/comparable
+ *
  *
  * @author oprokidnev
+ *
  */
-class InvalidDateFormatException extends \InvalidArgumentException
+class UncomparableException extends \Exception
 {
-    public function __construct(string $invalidValue = '', int $code = 0, \Throwable $previous = null)
+    public function __construct(\Oprokidnev\PartialDate\PartialDate $target, \Oprokidnev\PartialDate\PartialDate $comparedTo, int $code = 0, \Throwable $previous = null)
     {
-        $message = \sprintf('Expected date string format: "H:i:s d.m.Y|H:i d.m.Y|H: d.m.Y|d.m.Y|m.Y|Y". "%s" gained.', $invalidValue);
+        $message = '';
+        if ($target->hasDate()) {
+            $message .= 'Compareable object does not have any date set. ';
+        }
+        if ($comparedTo->hasDate()) {
+            $message .= 'Comparing to object does not have any date set';
+        }
         parent::__construct($message, $code, $previous);
     }
 }

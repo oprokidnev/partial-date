@@ -34,6 +34,9 @@
             "Oprokidnev\\Tests\\PartialDate\\": "tests/PartialDate"
         }
     },
+    "scripts":{
+        "tests":"if ! [ -f ./vendor/bin/phpunit ]; then echo \"Run composer install\"; else php ./vendor/bin/phpunit;  fi;"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1.x-dev"

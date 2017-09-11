@@ -25,15 +25,17 @@
 namespace Oprokidnev\PartialDate\Exception;
 
 /**
- * Description of InvalidDateFormatException
+ * Comparable implementation acorting to https://wiki.php.net/rfc/comparable
+ *
  *
  * @author oprokidnev
+ *
  */
-class InvalidDateFormatException extends \InvalidArgumentException
+class UnobviousResultException extends \Exception
 {
-    public function __construct(string $invalidValue = '', int $code = 0, \Throwable $previous = null)
+    public function __construct(\Oprokidnev\PartialDate\PartialDate $target, \Oprokidnev\PartialDate\PartialDate $comparedTo, int $code = 0, \Throwable $previous = null)
     {
-        $message = \sprintf('Expected date string format: "H:i:s d.m.Y|H:i d.m.Y|H: d.m.Y|d.m.Y|m.Y|Y". "%s" gained.', $invalidValue);
+        $message = \sprintf('Can\'t return an obvious result of comparion of date object %s to object %s', $target->getDateString(), $comparedTo->getDateString());
         parent::__construct($message, $code, $previous);
     }
 }

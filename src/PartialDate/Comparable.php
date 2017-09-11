@@ -22,18 +22,21 @@
  */
 
 
-namespace Oprokidnev\PartialDate\Exception;
+namespace Oprokidnev\PartialDate;
 
 /**
- * Description of InvalidDateFormatException
+ * Comparable implementation acording to https://wiki.php.net/rfc/comparable
+ *
  *
  * @author oprokidnev
+ *
  */
-class InvalidDateFormatException extends \InvalidArgumentException
+interface Comparable
 {
-    public function __construct(string $invalidValue = '', int $code = 0, \Throwable $previous = null)
-    {
-        $message = \sprintf('Expected date string format: "H:i:s d.m.Y|H:i d.m.Y|H: d.m.Y|d.m.Y|m.Y|Y". "%s" gained.', $invalidValue);
-        parent::__construct($message, $code, $previous);
-    }
+
+    /**
+     *
+     * @param mixed $other
+     */
+    public function compareTo($other);
 }

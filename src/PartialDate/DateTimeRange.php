@@ -21,19 +21,35 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+namespace Oprokidnev\PartialDate;
 
-namespace Oprokidnev\PartialDate\Exception;
-
-/**
- * Description of InvalidDateFormatException
- *
- * @author oprokidnev
- */
-class InvalidDateFormatException extends \InvalidArgumentException
+class DateTimeRange
 {
-    public function __construct(string $invalidValue = '', int $code = 0, \Throwable $previous = null)
+    /**
+     *
+     * @var \DateTime
+     */
+    protected $minDateTime;
+
+    /**
+     *
+     * @var \DateTime
+     */
+    protected $maxDateTime;
+
+    public function __construct(\DateTime $minDateTime, \DateTime $maxDateTime)
     {
-        $message = \sprintf('Expected date string format: "H:i:s d.m.Y|H:i d.m.Y|H: d.m.Y|d.m.Y|m.Y|Y". "%s" gained.', $invalidValue);
-        parent::__construct($message, $code, $previous);
+        $this->minDateTime = $minDateTime;
+        $this->maxDateTime = $maxDateTime;
+    }
+
+    public function getMinDateTime(): \DateTime
+    {
+        return $this->minDateTime;
+    }
+
+    public function getMaxDateTime(): \DateTime
+    {
+        return $this->maxDateTime;
     }
 }
